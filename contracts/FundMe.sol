@@ -29,8 +29,6 @@ contract FundMe {
         funders.push(msg.sender);
     }
     
- 
-    
     modifier onlyOwner {
         // require(msg.sender == owner);
         if (msg.sender != i_owner) revert NotOwner();
