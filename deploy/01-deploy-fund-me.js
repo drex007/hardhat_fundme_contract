@@ -10,21 +10,32 @@
 
 
 // module.exports.default = deployFunc
-const {networkConfig} = require ("../helper-hardhat-config")
+const {networkConfig, developmentChains} = require ("../helper-hardhat-config")
+const { network } = require("hardhat")
 
 
-module.exports = async (hre) =>{ 
-    const {getNamedAccounts, deployments } = hre // we want to get getNamedAccount and deployment from hre(hardhat-runtime-interface)
+module.exports = async ({ getNamedAccounts, deployments}) =>{ 
+     // we want to get getNamedAccount and deployment from hre(hardhat-runtime-interface)
     const {deploy, log } = deployments  // Then we get our deploy and log function from deployment
-    const {deployer} = getNamedAccounts()  //Then we get our deployer from the  getNamedAccount we access
+    const {deployer} = await  getNamedAccounts()  //Then we get our deployer from the  getNamedAccount we access
     const chainId = network.config.chainId // get chainId from the network we want to deploy to
 
-    const ethUsdPriceFeed = networkConfig[chainId]"ethUsdPriceFeed"
+    let ethUsdPriceFeedAddress
+    if(developmentChains.includes(network.name)){
+        const ethUsdAggregator = await deployments.get("MockV3Aggregator")
+        ethUsdPriceFeedAddress = ethUsdAggregator.address
 
-    const fundMe = await deploy("FundeMe", {
+    } else {
+         ethUsdPriceFeedAddress = networkConfig[chainId]["ethUsdPriceFeed"]
+    }
+
+    const fundMe = await deploy("FundMe", {
         from:deployer, // Address deploying the contract 
-        args: [] ,
+        args: [ethUsdPriceFeedAddress] ,
         log: true
     })
+    log("---------------------------->")
 
 }
+
+module.exports.tags = ["all", "fundme"]
