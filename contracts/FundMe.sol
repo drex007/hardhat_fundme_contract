@@ -2,10 +2,16 @@
 pragma solidity ^0.8.8;
 
 import "@chainlink/contracts/src/v0.8/interfaces/AggregatorV3Interface.sol";
-import "./PriceConverter.sol";
+import "./PriceConverter.sol"; 
 
-error NotOwner();
+error FundMe_NotOwner();
 
+
+/**@title A contract for crowd funding
+ * @author drex007 
+ * @notice this contract is to demo  afunde me contract 
+ * @dev this implement price feed as our library 
+*/
 contract FundMe {
     using PriceConverter for uint256;
 
@@ -31,7 +37,7 @@ contract FundMe {
     
     modifier onlyOwner {
         // require(msg.sender == owner);
-        if (msg.sender != i_owner) revert NotOwner();
+        if (msg.sender != i_owner) revert FundMe_NotOwner();
         _;
     }
     
