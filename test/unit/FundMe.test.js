@@ -80,7 +80,7 @@ const { developmentChains } = require("../../helper-hardhat-config")
                 assert.equal(
                     startingFundMeBalance
                         .add(startingDeployerBalance)
-                        .toString(), 
+                        .toString(),
                     endingDeployerBalance.add(gasCost).toString()
                 )// instead of using + sign to summm up the starting deployerbalance and the endingdeployer balance , we use add because those numbers are big numbers
             })
@@ -143,5 +143,6 @@ const { developmentChains } = require("../../helper-hardhat-config")
                     fundMeConnectedContract.withdraw()
                 ).to.be.revertedWith("FundMe__NotOwner")
             })
+
         })
     })
