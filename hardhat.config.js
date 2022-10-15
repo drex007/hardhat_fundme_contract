@@ -1,6 +1,7 @@
 require("@nomicfoundation/hardhat-toolbox");
 require('hardhat-deploy');
 require('dotenv').config()
+
 /** @type import('hardhat/config').HardhatUserConfig */
 
 
@@ -16,8 +17,8 @@ module.exports = {
   defaultNetwork: "hardhat",
   solidity: {
     compilers: [
-      {version: "0.8.8"},
-      {version : "0.6.6"}
+      { version: "0.8.8" },
+      { version: "0.6.6" }
     ]
   },
   etherscan: {
@@ -25,23 +26,23 @@ module.exports = {
   },
   networks: {
     rinkeby: {
-      url:RINKEBY_RPC_URL,
+      url: RINKEBY_RPC_URL,
       accounts: [PRIVATE_KEY],
-      chainId:4,
+      chainId: 4,
       blockConfirmations: 6,
     },
     goerli: {
       url: GOERLI_RPC_URL,
       accounts: [PRIVATE_KEY],
-      chainId:5,
-      blockConfirmations:6
+      chainId: 5,
+      blockConfirmations: 6
     }
   },
   namedAccounts: { // This namedAccount objecct is necessary inorder to allow harhat choose which of the address to use 
     deployer: {
-        default: 0, // here this will  by default take the first account as deployer
-        1: 0, // similarly on mainnet or testnet it will take the first account as deployer. Note though that depending on how hardhat network are configured, the account 0 on one network can be different than on another
-   
-      },
-},
+      default: 0, // here this will  by default take the first account as deployer
+      1: 0, // similarly on mainnet or testnet it will take the first account as deployer. Note though that depending on how hardhat network are configured, the account 0 on one network can be different than on another
+
+    },
+  },
 };
