@@ -25,6 +25,11 @@ module.exports = {
     apiKey: ETHERSCAN_API_KEY
   },
   networks: {
+    localhost: {
+      // url: 'http://127.0.0.1:8545/',
+      chainId: 31337,
+      // gasPrice: 130000000000,
+    },
     rinkeby: {
       url: RINKEBY_RPC_URL,
       accounts: [PRIVATE_KEY],
